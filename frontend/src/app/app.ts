@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
+  template: `<router-outlet>`,
   styleUrl: './app.css'
 })
 export class App {
-  protected title = 'cf7';
+  protected title = 'CF7';
 }

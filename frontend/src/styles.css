@@ -1,1 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+* {
+  --main-color: #480376;
+}
+
+body {
+  margin:0;
+}
+
+.app-root {
+  max-width: 1600px!important;
+  display: block;
+  margin:0 auto
+}
+
+button{
+  background-color: var(--main-color);
+}
+
+a {
+  color: var(--main-color);
+}
+
+input[type="text"]:focus,input[type="email"]:focus,input[type="password"]:focus,input[type="tel"]:focus, textarea:focus{
+  outline-color: var(--main-color);
+}
+
+.navbar { 
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.navbar .nav-links a {
+  padding: 4px;
+}
+
+.navbar a.active, .navbar a:not(.active):hover{
+  background: white;
+  color: #480376!important;
+  border-radius: 4px;
+}
