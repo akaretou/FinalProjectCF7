@@ -35,6 +35,12 @@ const USERS = [
   }
 ];
 
+
+function authRequired(req, res, next) {
+  if (!req.session.userId) return res.sendStatus(401);
+  next();
+}
+
 function findUser(username) {
   return USERS.find(u => u.username === username);
 }
@@ -52,6 +58,14 @@ app.post('/login', async (req, res) => {
     if (err) return res.sendStatus(500);
     req.session.userId = user.id;
     res.json({ id: user.id, username: user.username });
+  });
+});
+
+app.get('/logout', authRequired, (req, res) => {
+  req.session.destroy(err => {
+    if (err) return res.sendStatus(500);
+    res.clearCookie('sid');
+    res.sendStatus(204);
   });
 });
 

@@ -5,8 +5,12 @@
     </div>
     <div class='nav-links right'>
 
-        <a routerLink="/register" routerLinkActive="active">Εγγραφή</a>
-        <a routerLink="/login" routerLinkActive="active">Σύνδεση</a>
-
+        <div *ngIf="!auth.isLoggedIn()">
+          <a routerLink="/register" routerLinkActive="active">Εγγραφή</a>
+          <a routerLink="/login" routerLinkActive="active">Σύνδεση</a>
+        </div>
+        <div *ngIf="auth.isLoggedIn()">
+          <a (click)="logout()">Αποσύνδεση</a>
+        </div>
     </div>
 </nav>

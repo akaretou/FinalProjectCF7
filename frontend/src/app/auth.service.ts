@@ -26,4 +26,18 @@ export class AuthService {
     );   
   }
 
+  logout() {
+    this.user.set(null)
+    return this.http.get('http://localhost:3000/logout', { withCredentials: true }).pipe(
+      tap(),
+      catchError(() => {
+        this.user.set(null);
+        return of(null);
+      })
+    );
+  }
+
+  isLoggedIn() {
+    return this.user() !== null;
+  }
 }

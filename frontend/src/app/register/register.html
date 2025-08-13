@@ -15,6 +15,7 @@
             type="text"
             name="firstname" 
             id="firstname" 
+            [(ngModel)]="model.firstname"
             autocomplete="given-name" 
             required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
         </div>
@@ -26,6 +27,7 @@
             type="text" 
             name="lastname" 
             id="lastname"
+            [(ngModel)]="model.lastname"
             autocomplete="family-name" 
             required 
             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
@@ -38,11 +40,14 @@
             type="email" 
             name="email" 
             id="email" 
+            [(ngModel)]="model.email"
             autocomplete="email" 
             required 
             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
         </div>
-        
+        <div *ngIf="model.email && !validEmail()" class="text-red-500 text-sm">
+            Η διεύθυνση email δεν είναι έγκυρη.
+        </div>
       </div>
 
       <div>
@@ -52,6 +57,7 @@
             type="tel"
             name="mobile" 
             id="mobile" 
+            [(ngModel)]="model.mobile"
             autocomplete="mobile" 
             required 
             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
@@ -67,6 +73,7 @@
             type="password" 
             name="password" 
             id="password" 
+            [(ngModel)]="model.password"
             autocomplete="off" 
             required 
             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
@@ -80,9 +87,13 @@
             type="password" 
             name="password2" 
             id="password2" 
+            [(ngModel)]="model.password2"
             autocomplete="off" 
             required
             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+        </div>
+        <div *ngIf="model.password && model.password2 && !passwordsMatch()" class="text-red-500 text-sm">
+            Οι κωδικοί δεν ταιριάζουν.
         </div>
       </div>
 
