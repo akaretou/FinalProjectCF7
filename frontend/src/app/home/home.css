@@ -1,0 +1,76 @@
+/* This file can remain mostly empty as we're using Tailwind CSS directly in the HTML */
+/* You can add any custom CSS here that can't be easily achieved with Tailwind */
+
+/* Optional: Animation for filter panel */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.filter-panel-backdrop {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Add line-clamp if not available in your Tailwind config */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.5rem; /* Ensures consistent height even with single line */
+}
+
+/* Ensure product titles are consistent height */
+.product-name {
+  height: 1.75rem; /* Adjust if needed based on your font size */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Equal height cards */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.product-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-to-cart-container {
+  margin-top: auto;
+}
+
+.hero-section {
+  min-height: 500px;
+  position: relative;
+  background-color: #1a365d;
+}
