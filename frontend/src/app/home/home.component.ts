@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from '../header';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { Header } from '../header';
+import { Footer } from '../footer';
 
 interface Product {
   id: number;
@@ -16,7 +18,7 @@ interface Product {
 
 @Component({
   selector: 'home-page',
-  imports: [RouterOutlet, Header, CommonModule, FormsModule],
+  imports: [RouterOutlet, Header, Footer, CommonModule, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
   standalone: true,

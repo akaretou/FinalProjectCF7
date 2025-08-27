@@ -84,7 +84,7 @@
         <div class="mt-auto">
           <button 
             (click)="interestedIn(product)"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition flex items-center justify-center gap-2"
+            class="w-full button-theme text-white font-medium py-2 px-4 rounded-md transition flex items-center justify-center gap-2"
           >
             Ενδιαφέρομαι
           </button>
@@ -97,7 +97,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
     </svg>
-    <h3 class="text-lg font-medium text-gray-900 mb-1">No products found</h3>
+    <h3 class="text-lg font-medium text-gray-900 mb-1">Δεν βρέθηκαν προϊόντα</h3>
   </div>
   
   <!-- Pagination -->
@@ -108,7 +108,7 @@
         [disabled]="currentPage === 1"
         (click)="goToPage(currentPage - 1)"
         [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === 1}"
-        class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-white hover:bg-gray-50"
+        class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -121,7 +121,7 @@
         <button 
           *ngFor="let page of getPageNumbers()"
           (click)="goToPage(page)"
-          class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50 text-white!"
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium hover:bg-gray-50 text-white!"
           [ngClass]="{
             'z-10 font-bold!': currentPage === page,
             'text-white': currentPage !== page
@@ -132,7 +132,7 @@
       </div>
       
       <!-- Mobile current page indicator -->
-      <div class="sm:hidden relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+      <div class="sm:hidden relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium text-gray-700">
         {{ currentPage }} από {{ totalPages }}
       </div>
       
@@ -141,7 +141,7 @@
         [disabled]="currentPage === totalPages"
         (click)="goToPage(currentPage + 1)"
         [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === totalPages}"
-        class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-white hover:bg-gray-50"
+        class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -151,5 +151,5 @@
     </nav>
   </div>
 </div>
-
+<footer></footer>
 <router-outlet />

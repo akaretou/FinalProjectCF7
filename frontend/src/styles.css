@@ -14,10 +14,6 @@ body {
   margin:0 auto
 }
 
-button{
-  background-color: var(--main-color);
-}
-
 a {
   color: var(--main-color);
 }

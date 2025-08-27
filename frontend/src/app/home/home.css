@@ -74,3 +74,8 @@
   position: relative;
   background-color: #1a365d;
 }
+
+.button-theme{
+  background-color: var(--main-color);
+  cursor: pointer;
+}
