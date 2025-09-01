@@ -21,7 +21,7 @@ export class LoginPage {
 
   submit() {
     this.auth.login(this.email, this.password).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => this.router.navigate(['/panel']),
       error: () => (this.error = 'Login failed')
     });
   }
