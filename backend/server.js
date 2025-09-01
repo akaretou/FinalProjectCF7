@@ -79,65 +79,85 @@ app.get('/me', async (req, res) => {
 });
 
 
-const mockListings = [
+const listings = [
   {
     id: 1,
     title: 'Apple iPhone 15 Pro',
     description: '256GB, Titanium Black, 6.1" OLED display, A17 Pro chip.',
     address: 'Warehouse A1, Athens',
-    geolocation: '37.9838, 23.7275',
+    geolocation: {
+      lat: 37.9838,
+      lng: 23.7275
+    },
     status: 1,
     image: 'https://picsum.photos/80?random=11',
-    category: 'Electronics'
+    category: 1,
+    availableUntil: '10/01/2025'
   },
   {
     id: 2,
     title: 'Sony WH-1000XM5 Headphones',
     description: 'Noise-canceling wireless headphones with 30h battery.',
     address: 'Warehouse B3, Thessaloniki',
-    geolocation: '40.6401, 22.9444',
+    geolocation: {
+      lat: 40.6401,
+      lng: 22.9444,
+    },
     status: 1,
     image: 'https://picsum.photos/80?random=12',
-    category: 'Audio'
+    category: 2,
+    availableUntil: '10/01/2025'
   },
   {
     id: 3,
     title: 'Samsung 55" QLED 4K TV',
     description: 'Smart TV with HDR, 120Hz refresh rate, Dolby Atmos.',
     address: 'Warehouse C2, Patras',
-    geolocation: '38.2466, 21.7346',
+    geolocation: {
+      lat: 38.2466, 
+      lng: 21.7346,
+    },
     status: 3,
     image: 'https://picsum.photos/80?random=13',
-    category: 'Electronics'
+    category: 3,
+    availableUntil: '10/01/2025'
   },
   {
     id: 4,
     title: 'Nike Air Max 270',
     description: 'Comfortable and stylish sneakers in white/red colorway.',
     address: 'Warehouse D1, Heraklion',
-    geolocation: '35.3387, 25.1442',
+    geolocation: {
+      lat: 35.3387,
+      lng: 25.1442
+    },
     status: 1,
     image: 'https://picsum.photos/80?random=14',
-    category: 'Footwear'
+    category: 2,
+    availableUntil: '10/01/2025'
   },
   {
     id: 5,
     title: 'Adidas Performance T-Shirt',
     description: 'Breathable sports T-shirt, quick dry technology.',
     address: 'Warehouse E5, Volos',
-    geolocation: '39.3610, 22.9425',
+    geolocation: {
+      lat: 39.3610,
+      lng: 22.9425,
+    },
     status: 2,
     image: 'https://picsum.photos/80?random=15',
-    category: 'Clothing'
+    category: 2,
+    availableUntil: '10/01/2025'
   }
 ];
 
 app.get('/listings', authRequired, (req, res) => {
-  res.json(mockListings);
+  res.json(listings);
 });
 
 app.get('/listing/:id', authRequired, (req, res) => {
-  const listing = mockListings.find(l => l.id === Number(req.params.id));
+  const listing = listings.find(l => l.id === Number(req.params.id));
   if (!listing) return res.status(404).json({ message: 'Not found' });
   res.json(listing);
 });

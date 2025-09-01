@@ -1,0 +1,142 @@
+<nav-header></nav-header>
+
+<div
+  class="p-4 md:p-6 max-w-xl mx-auto bg-white shadow-md rounded-lg border border-gray-200 mt-10 pb-20"
+>
+  <h2 class="text-xl font-semibold mb-4">Επεξεργασία</h2>
+
+  <form (ngSubmit)="save()" class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium">Τίτλος</label>
+      <input
+        [(ngModel)]="product.title"
+        name="title"
+        class="w-full p-2 border rounded-md"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Περιγραφή</label>
+      <textarea
+        [(ngModel)]="product.description"
+        name="description"
+        class="w-full p-2 border rounded-md"
+      ></textarea>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Διεύθυνση</label>
+      <input
+        [(ngModel)]="product.address"
+        name="address"
+        class="w-full p-2 border rounded-md"
+      />
+    </div>
+
+    <div class="mt-4">
+      <label class="block text-sm font-medium mb-1">Χάρτης</label>
+      <div id="map" class="h-64 w-full rounded border border-gray-300"></div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Latitude</label>
+      <input
+        [value]="product.geolocation?.lat"
+        readonly
+        class="w-full p-2 border rounded-md bg-gray-100 text-gray-700"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Longitude</label>
+      <input
+        [value]="product.geolocation?.lng"
+        readonly
+        class="w-full p-2 border rounded-md bg-gray-100 text-gray-700"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Κατηγορία</label>
+      <select
+        [(ngModel)]="product.category"
+        name="category"
+        class="w-full p-2 border rounded-md"
+      >
+        <option value="1">Καλυντικά</option>
+        <option value="2">Φαγητά</option>
+        <option value="3">Ποτά</option>
+
+        <option value="100">Άλλο</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-1">Διαθέσιμο έως</label>
+      <input 
+        type="datetime-local"
+        [(ngModel)]="product.availableUntil"
+        class="w-full p-2 border rounded-md"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Κατάσταση</label>
+      <select
+        [(ngModel)]="product.status"
+        name="status"
+        class="w-full p-2 border rounded-md"
+      >
+        <option value="1">Ενεργό</option>
+        <option value="2">Ανενεργό</option>
+        <option value="3">Έχει δωθεί</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Εικόνα</label>
+
+      <div *ngIf="imagePreview" class="mb-3">
+        <img
+          [src]="imagePreview"
+          alt="Preview"
+          class="max-h-48 rounded border"
+        />
+        <button
+          type="button"
+          (click)="removeImage()"
+          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 mt-2 rounded"
+        >
+          Αφαίρεση εικόνας
+        </button>
+      </div>
+
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        class="w-full border p-2 rounded-md"
+        accept="image/*"
+      />
+    </div>
+
+    <div class="flex justify-between mt-6">
+      <button
+        type="button"
+        (click)="router.navigate(['/panel'])"
+        class="bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 rounded"
+      >
+        Επιστροφή
+      </button>
+
+      <button
+        type="submit"
+        class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+      >
+        Αποθήκευση
+      </button>
+    </div>
+  </form>
+</div>
+
+<footer></footer>
+<router-outlet />
