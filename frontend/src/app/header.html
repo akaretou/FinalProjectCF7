@@ -10,6 +10,7 @@
           <a routerLink="/login" routerLinkActive="active">Σύνδεση</a>
         </div>
         <div *ngIf="auth.isLoggedIn()">
+          <a routerLink="/panel">Διαχείρηση</a>
           <a (click)="logout()">Αποσύνδεση</a>
         </div>
     </div>

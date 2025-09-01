@@ -18,7 +18,7 @@ interface Product {
 
 @Component({
   selector: 'home-page',
-  imports: [RouterOutlet, Header, Footer, CommonModule, FormsModule],
+  imports: [RouterOutlet, Header, Footer,  CommonModule, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
   standalone: true,
