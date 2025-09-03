@@ -1,39 +1,56 @@
 <nav-header></nav-header>
 
 <!-- Hero Section with Search -->
-<div class="relative bg-gradient-to-r from-blue-900 to-indigo-800 overflow-hidden hero-section">
+<div
+  class="relative bg-gradient-to-r from-blue-900 to-indigo-800 overflow-hidden hero-section"
+>
   <!-- Background image with overlay -->
-  <div class="absolute inset-0 bg-cover bg-bottom bg-no-repeat" 
-       style="background-image: url('assets/images/hero.jpg'); 
-              opacity: 0.6;"></div>
-  
+  <div
+    class="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
+    style="background-image: url('assets/images/hero.jpg'); opacity: 0.6"
+  ></div>
+
   <!-- Hero content -->
   <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
     <div class="text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Welcome to {{ title }}</h1>
-      <p class="text-xl text-white/80 mb-8">Χαρίστε ό,τι δεν μπορείτε να μεταφέρετε πίσω από το ταξίδι σας!</p>
-      
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        Welcome to {{ title }}
+      </h1>
+      <p class="text-xl text-white/80 mb-8">
+        Χαρίστε ό,τι δεν μπορείτε να μεταφέρετε πίσω από το ταξίδι σας!
+      </p>
+
       <!-- Search and filter container -->
       <div class="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4">
         <!-- Search field -->
         <div class="relative flex-grow">
-          <input 
-            type="text" 
+          <input
+            type="text"
             [(ngModel)]="searchTerm"
             (keyup.enter)="searchProducts()"
-            placeholder="Αναζήτηση..." 
+            placeholder="Αναζήτηση..."
             class="w-full px-5 py-3 rounded-full border-1 text-white border-white"
-          >
-          <button 
+          />
+          <button
             (click)="searchProducts()"
             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 bg-transparent!"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
             </svg>
           </button>
         </div>
-        
       </div>
     </div>
   </div>
@@ -46,43 +63,42 @@
     <h2 class="text-2xl font-bold text-gray-900">Πρόσφατες καταχωρήσεις</h2>
     <p class="text-gray-600 mt-1"></p>
   </div>
-  
+
   <!-- Product grid - 4 per row on desktop, 1 per row on mobile -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Product card -->
-    <div *ngFor="let product of products" class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
-      <!-- Product image and favorite button -->
-      <div class="relative h-64">
-        <img [src]="product.imageUrl" [alt]="product.name" class="w-full h-full object-cover">
-        <button 
-          (click)="toggleFavorite(product)" 
-          class="absolute top-2 right-2 bg-white/80 hover:bg-white p-2 rounded-full shadow-sm transition-colors duration-200"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" 
-              [ngClass]="{'text-red-500 fill-current': product.isFavorite, 'text-white': !product.isFavorite}"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-        </button>
-      </div>
-      
+    <div
+      *ngFor="let product of products"
+      class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
+    >
       <!-- Product details -->
+      <img
+        [src]="product.image"
+        alt="{{ product.title }}"
+        class="w-full h-48 object-cover"
+      />
+
       <div class="p-4 flex flex-col flex-grow">
         <div class="mb-1">
-          <span class="inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full">
+          <span
+            class="inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full"
+          >
             {{ product.category }}
           </span>
         </div>
-        <h3 class="text-lg font-medium text-gray-900 mb-1 h-7 overflow-hidden">{{ product.name }}</h3>
-        <p class="text-sm mb-2">{{ product.location }}</p>
-        
+        <h3 class="text-lg font-medium text-gray-900 mb-1 h-7 overflow-hidden">
+          {{ product.title }}
+        </h3>
+        <p class="text-sm mb-2">{{ product.address }}</p>
+
         <!-- Fixed height description with line clamp -->
-        <p class="text-gray-600 text-sm mb-4 overflow-hidden line-clamp-2 h-10">{{ product.description }}</p>
-        
+        <p class="text-gray-600 text-sm mb-4 overflow-hidden line-clamp-2 h-10">
+          {{ product.description }}
+        </p>
+
         <!-- Push button to bottom with flex -->
         <div class="mt-auto">
-          <button 
+          <button
             (click)="interestedIn(product)"
             class="w-full button-theme text-white font-medium py-2 px-4 rounded-md transition flex items-center justify-center gap-2"
           >
@@ -91,65 +107,107 @@
         </div>
       </div>
     </div>
-  
-  <!-- Empty state when no products found -->
-  <div *ngIf="products.length === 0" class="py-16 text-center">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-    <h3 class="text-lg font-medium text-gray-900 mb-1">Δεν βρέθηκαν προϊόντα</h3>
-  </div>
-  
-  <!-- Pagination -->
-  <div *ngIf="totalPages > 1" class="mt-12 flex justify-center">
-    <nav class="inline-flex rounded-md shadow">
-      <!-- Previous page -->
-      <button 
-        [disabled]="currentPage === 1"
-        (click)="goToPage(currentPage - 1)"
-        [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === 1}"
-        class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
+
+    <!-- Empty state when no products found -->
+    <div *ngIf="products.length === 0" class="py-16 text-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-16 w-16 mx-auto text-gray-400 mb-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-        <span class="sr-only">&lt;</span>
-      </button>
-      
-      <!-- Page numbers -->
-      <div class="hidden sm:flex">
-        <button 
-          *ngFor="let page of getPageNumbers()"
-          (click)="goToPage(page)"
-          class="relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium hover:bg-gray-50 text-white!"
-          [ngClass]="{
-            'z-10 font-bold!': currentPage === page,
-            'text-white': currentPage !== page
-          }"
-        >
-          {{ page }}
-        </button>
-      </div>
-      
-      <!-- Mobile current page indicator -->
-      <div class="sm:hidden relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium text-gray-700">
-        {{ currentPage }} από {{ totalPages }}
-      </div>
-      
-      <!-- Next page -->
-      <button 
-        [disabled]="currentPage === totalPages"
-        (click)="goToPage(currentPage + 1)"
-        [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === totalPages}"
-        class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-        <span class="sr-only">&gt;</span>
-      </button>
-    </nav>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        />
+      </svg>
+      <h3 class="text-lg font-medium text-gray-900 mb-1">
+        Δεν βρέθηκαν προϊόντα
+      </h3>
+    </div>
+    
   </div>
+  <div class="w-full">
+      <!-- Pagination -->
+      <div *ngIf="totalPages > 1" class="mt-12 flex justify-center">
+        <nav class="inline-flex rounded-md shadow">
+          <!-- Previous page -->
+          <button
+            [disabled]="currentPage === 1"
+            (click)="goToPage(currentPage - 1)"
+            [ngClass]="{ 'opacity-50 cursor-not-allowed': currentPage === 1 }"
+            class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            <span class="sr-only">&lt;</span>
+          </button>
+
+          <!-- Page numbers -->
+          <div class="hidden sm:flex">
+            <button
+              *ngFor="let page of getPageNumbers()"
+              (click)="goToPage(page)"
+              class="relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium hover:bg-gray-50 text-white!"
+              [ngClass]="{
+                'z-10 font-bold!': currentPage === page,
+                'text-white': currentPage !== page
+              }"
+            >
+              {{ page }}
+            </button>
+          </div>
+
+          <!-- Mobile current page indicator -->
+          <div
+            class="sm:hidden relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium text-gray-700"
+          >
+            {{ currentPage }} από {{ totalPages }}
+          </div>
+
+          <!-- Next page -->
+          <button
+            [disabled]="currentPage === totalPages"
+            (click)="goToPage(currentPage + 1)"
+            [ngClass]="{
+              'opacity-50 cursor-not-allowed': currentPage === totalPages
+            }"
+            class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+            <span class="sr-only">&gt;</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  <footer></footer>
+  <router-outlet />
 </div>
-<footer></footer>
-<router-outlet />
