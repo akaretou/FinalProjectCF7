@@ -14,7 +14,7 @@
   <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
     <div class="text-center">
       <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-        Welcome to {{ title }}
+        {{ title }}
       </h1>
       <p class="text-xl text-white/80 mb-8">
         Χαρίστε ό,τι δεν μπορείτε να μεταφέρετε πίσω από το ταξίδι σας!
@@ -51,6 +51,34 @@
             </svg>
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="relative bg-gradient-to-r bg-blue-100 overflow-hidden"
+>
+  <div class="container mx-auto py-10">
+    <div class="mb-8">
+      <div>
+        <p class="text-2xl">
+          Τελειώνουν οι μέρες των διακοπών σου; Έχεις αντικείμενα που δεν
+          μπορείς να μεταφέρεις και δεν θέλεις να πετάξεις; Σκέφτηκες να τα
+          χαρίσεις αλλά δεν βρήκες τον τρόπο; Η εφαρμογή LeaveIt έρχεται να
+          δώσει τη λύση!
+        </p>
+        <p class="text-2xl mt-10">
+          Μέσω της LeaveIt, μίας εύχρηστης πλατφόρμας, οι χρήστες μπορούν να
+          ανεβάσουν αντικείμενα, από τρόφιμα έως μικροπράγματα ή εξοπλισμό
+          παραλίας, που θέλουν να χαρίσουν άμεσα σε άλλους ταξιδιώτες ή
+          ντόπιους.
+        </p>
+        <p class="text-2xl mt-10">
+          Στόχος ης LeaveIt είναι να μειωθεί η σπατάλη και να ενισχυθεί η
+          αίσθηση της κοινότητας και προσφοράς. Έτσι, κάθε αναχώρηση θα είναι
+          και μία ευκαιρία προσφοράς.
+        </p>
       </div>
     </div>
   </div>
@@ -128,86 +156,85 @@
         Δεν βρέθηκαν προϊόντα
       </h3>
     </div>
-    
   </div>
   <div class="w-full">
-      <!-- Pagination -->
-      <div *ngIf="totalPages > 1" class="mt-12 flex justify-center">
-        <nav class="inline-flex rounded-md shadow">
-          <!-- Previous page -->
-          <button
-            [disabled]="currentPage === 1"
-            (click)="goToPage(currentPage - 1)"
-            [ngClass]="{ 'opacity-50 cursor-not-allowed': currentPage === 1 }"
-            class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
+    <!-- Pagination -->
+    <div *ngIf="totalPages > 1" class="mt-12 flex justify-center">
+      <nav class="inline-flex rounded-md shadow">
+        <!-- Previous page -->
+        <button
+          [disabled]="currentPage === 1"
+          (click)="goToPage(currentPage - 1)"
+          [ngClass]="{ 'opacity-50 cursor-not-allowed': currentPage === 1 }"
+          class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            <span class="sr-only">&lt;</span>
-          </button>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <span class="sr-only">&lt;</span>
+        </button>
 
-          <!-- Page numbers -->
-          <div class="hidden sm:flex">
-            <button
-              *ngFor="let page of getPageNumbers()"
-              (click)="goToPage(page)"
-              class="relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium hover:bg-gray-50 text-white!"
-              [ngClass]="{
-                'z-10 font-bold!': currentPage === page,
-                'text-white': currentPage !== page
-              }"
-            >
-              {{ page }}
-            </button>
-          </div>
-
-          <!-- Mobile current page indicator -->
-          <div
-            class="sm:hidden relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium text-gray-700"
-          >
-            {{ currentPage }} από {{ totalPages }}
-          </div>
-
-          <!-- Next page -->
+        <!-- Page numbers -->
+        <div class="hidden sm:flex">
           <button
-            [disabled]="currentPage === totalPages"
-            (click)="goToPage(currentPage + 1)"
+            *ngFor="let page of getPageNumbers()"
+            (click)="goToPage(page)"
+            class="relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium hover:bg-gray-50 text-white!"
             [ngClass]="{
-              'opacity-50 cursor-not-allowed': currentPage === totalPages
+              'z-10 font-bold!': currentPage === page,
+              'text-white': currentPage !== page
             }"
-            class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-            <span class="sr-only">&gt;</span>
+            {{ page }}
           </button>
-        </nav>
-      </div>
+        </div>
+
+        <!-- Mobile current page indicator -->
+        <div
+          class="sm:hidden relative inline-flex items-center px-4 py-2 border border-gray-300 button-theme text-sm font-medium text-gray-700"
+        >
+          {{ currentPage }} από {{ totalPages }}
+        </div>
+
+        <!-- Next page -->
+        <button
+          [disabled]="currentPage === totalPages"
+          (click)="goToPage(currentPage + 1)"
+          [ngClass]="{
+            'opacity-50 cursor-not-allowed': currentPage === totalPages
+          }"
+          class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 button-theme text-sm font-medium text-white hover:bg-gray-50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+          <span class="sr-only">&gt;</span>
+        </button>
+      </nav>
     </div>
+  </div>
   <footer></footer>
   <router-outlet />
 </div>

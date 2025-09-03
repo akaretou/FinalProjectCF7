@@ -9,7 +9,7 @@ import { Header } from '../header';
 import { Footer } from '../footer';
 
 import { Product, Geo } from '../models/product.model';
-import { API_URL } from '../constants';
+import { API_URL, APP_NAME } from '../constants';
 
 @Component({
   selector: 'home-page',
@@ -19,7 +19,7 @@ import { API_URL } from '../constants';
   standalone: true,
 })
 export class HomePage implements OnInit {
-  protected title = 'CF17';
+  protected title = APP_NAME;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
@@ -53,7 +53,7 @@ export class HomePage implements OnInit {
                 p.address,
                 p.geolocation,
                 p.status,
-                p.image,
+                'uploads/' + p.image,
                 p.category,
                 p.availableUntil
               )

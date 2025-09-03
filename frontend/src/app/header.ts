@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
 
+
 @Component({
   selector: 'nav-header',
   standalone: true,
@@ -13,6 +14,9 @@ import { AuthService } from './auth.service';
 export class Header {
   constructor(public auth: AuthService, private router: Router) {}
 
+  /**
+   * Log out and redirect to the home page
+   */
   logout() {
     this.auth.logout().subscribe({
       next: () => this.router.navigate(['/']),
