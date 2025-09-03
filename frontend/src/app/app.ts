@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   styleUrl: './app.css'
 })
 export class App implements OnInit {
-  protected title = 'CF7';
+  protected title = 'LeaveIt';
 
   constructor(private auth: AuthService) {}
 

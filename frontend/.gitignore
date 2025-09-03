@@ -42,5 +42,5 @@ testem.log
 Thumbs.db
 
 bak
- .vscode
- 
+.vscode
+public/uploads

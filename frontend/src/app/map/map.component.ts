@@ -66,7 +66,7 @@ export class MapPage implements OnInit, AfterViewInit {
               p.address,
               p.geolocation,
               p.status,
-              p.image,
+              'uploads/' + p.image,
               p.category,
               p.availableUntil
             )
@@ -93,10 +93,10 @@ export class MapPage implements OnInit, AfterViewInit {
         const marker = L.marker([product.geolocation.lat, product.geolocation.lng],  { icon: customIcon } )
           .addTo(this.map)
           .bindPopup(`
-            <div>
+            <div class="text-center" style="width:300px;" >
               <strong>${product.title}</strong><br/>
               ${product.address}<br/>
-              <img src="${product.image}" style="width:100px; height:auto; margin-top:4px"/>
+              <img src="${product.image}" style="width:300px; height:auto; margin-top:4px"/> 
             </div>
           `);
         this.markers.push(marker);
