@@ -1,0 +1,10 @@
+.map-container {
+  height: calc(100vh - 160px);
+  width: 100%;
+}
+
+.map-hero {
+  background-color: #1a365d;
+  color: white;
+  padding: 1rem;
+}
