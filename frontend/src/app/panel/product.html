@@ -12,7 +12,11 @@
         [(ngModel)]="product.title"
         name="title"
         class="w-full p-2 border rounded-md"
+        required
       />
+        <div *ngIf="!product.title" class="text-red-500 text-sm">
+            To πεδίο είναι υποχρεωτικό
+        </div>
     </div>
 
     <div>
@@ -21,7 +25,11 @@
         [(ngModel)]="product.description"
         name="description"
         class="w-full p-2 border rounded-md"
+        required
       ></textarea>
+        <div *ngIf="!product.description" class="text-red-500 text-sm">
+            To πεδίο είναι υποχρεωτικό
+        </div>
     </div>
 
     <div>
@@ -30,7 +38,11 @@
         [(ngModel)]="product.address"
         name="address"
         class="w-full p-2 border rounded-md"
+        required
       />
+       <div *ngIf="!product.address" class="text-red-500 text-sm">
+            To πεδίο είναι υποχρεωτικό
+        </div>
     </div>
 
     <div class="mt-4">
@@ -41,7 +53,8 @@
     <div>
       <label class="block text-sm font-medium">Latitude</label>
       <input
-        [value]="product.geolocation.lat"
+        [value]="product.geolocation?.lat"
+        name="lat"
         readonly
         class="w-full p-2 border rounded-md bg-gray-100 text-gray-700"
       />
@@ -50,7 +63,8 @@
     <div>
       <label class="block text-sm font-medium">Longitude</label>
       <input
-        [value]="product.geolocation.lng"
+        [value]="product.geolocation?.lng"
+        name="lng"
         readonly
         class="w-full p-2 border rounded-md bg-gray-100 text-gray-700"
       />
@@ -62,13 +76,18 @@
         [(ngModel)]="product.category"
         name="category"
         class="w-full p-2 border rounded-md"
+        required
       >
-        <option value="1">Καλυντικά</option>
-        <option value="2">Φαγητά</option>
-        <option value="3">Ποτά</option>
+        <option value=""></option>
+        <option value="Καλλυντικά">Καλλυντικά</option>
+        <option value="Φαγητά">Φαγητά</option>
+        <option value="Ποτά">Ποτά</option>
 
         <option value="100">Άλλο</option>
       </select>
+       <div *ngIf="!product.category" class="text-red-500 text-sm">
+            To πεδίο είναι υποχρεωτικό
+        </div>
     </div>
 
     <div class="mb-4">
@@ -76,21 +95,30 @@
       <input 
         type="datetime-local"
         [(ngModel)]="product.availableUntil"
+        name="availableUntil"
         class="w-full p-2 border rounded-md"
+        required
       />
+       <div *ngIf="!product.availableUntil" class="text-red-500 text-sm">
+            To πεδίο είναι υποχρεωτικό
+        </div>
     </div>
 
     <div>
       <label class="block text-sm font-medium">Κατάσταση</label>
       <select
         [(ngModel)]="product.status"
-        name="status"
+        name="status" 
         class="w-full p-2 border rounded-md"
+        required
       >
         <option value="1">Ενεργό</option>
         <option value="2">Ανενεργό</option>
         <option value="3">Έχει δωθεί</option>
       </select>
+       <div *ngIf="!product.status" class="text-red-500 text-sm">
+            To πεδίο είναι υποχρεωτικό
+        </div>
     </div>
 
     <div>

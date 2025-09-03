@@ -15,7 +15,7 @@ export class Product{
     public title: string,
     public description: string,
     public address: string,
-    public geolocation: Geo,
+    public geolocation: Geo | null,
     public status: number,
     public image: string,
     public category: string,

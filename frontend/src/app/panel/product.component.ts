@@ -4,8 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 
-import { Geo } from '../models/product.model';
-import { Product } from '../models/product.model';
+import { Product, Geo } from '../models/product.model';
 import { ProductsService } from './panel.service';
 
 import { Header } from '../header';
@@ -21,12 +20,14 @@ import * as L from 'leaflet';
   styleUrl: './panel.css',
 })
 export class ProductPage implements OnInit {
-  productId!: number;
+  productId: string | null= "new";
   product: Product = {} as Product;
   selectedFile: File | null = null;
   imagePreview: string | null = null;
   
   locationAvailable = false;
+
+  removeProductImage = false;
 
   map!: L.Map;
   marker!: L.Marker;
@@ -42,28 +43,36 @@ export class ProductPage implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('id') !== 'new') {
-      this.productId = Number(this.route.snapshot.paramMap.get('id'));
+      this.productId = String(this.route.snapshot.paramMap.get('id'));
       this.productsService.getProduct(this.productId).subscribe({
         next: (res) => {
+          let geo = null;
+          if (res.geolocation?.lat && res.geolocation?.lat) {
+            geo = new Geo(res.geolocation.lat, res.geolocation.lng);
+          }
+          console.log(res)
           this.product = new Product(
-            res.id,
+            res._id,
             res.title,
             res.description,
             res.address,
-            new Geo(res.geolocation.lat, res.geolocation.lng),
+            geo,
             res.status,
             res.image,
             res.category,
             ''
           );
           
-          this.setupMap(this.product.geolocation.lat, this.product.geolocation.lng);
+          if (geo) {
+            this.setupMap(Number(this.product.geolocation?.lat), Number(this.product.geolocation?.lng));
+          }
           this.locationAvailable = false;
 
           if (res.image) {
-            this.imagePreview = `http://localhost:3000/uploads/${res.image}`;
+            this.imagePreview = `uploads/${res.image}`;
           }
           this.cdr.detectChanges();
+
         },
         error: (err) => {
           console.error('Failed to fetch product', err);
@@ -74,6 +83,7 @@ export class ProductPage implements OnInit {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           this.product.geolocation = new Geo(position.coords.latitude, position.coords.longitude);
+          this.setupMap(this.product.geolocation.lat, this.product.geolocation.lng);
 
           this.locationAvailable = true;
 
@@ -125,31 +135,49 @@ export class ProductPage implements OnInit {
     this.selectedFile = null;
     this.imagePreview = null;
     this.product.image = '';
+    this.removeProductImage = true;
   }
 
   save() {
+    let lat = String(this.product.geolocation?.lat);
+    let lng = String(this.product.geolocation?.lng);
+
     const formData = new FormData();
     formData.append('title', this.product.title);
     formData.append('description', this.product.description);
     formData.append('address', this.product.address);
-    formData.append('latitute', this.product.geolocation.lat.toString());
-    formData.append('longitute', this.product.geolocation.lng.toString());
+    formData.append('latitute', lat);
+    formData.append('longitute', lng);
     formData.append('status', String(this.product.status));
     formData.append('category', this.product.category);
+
+    if (this.removeProductImage) {
+      formData.append('removeImage', 1);
+    }
 
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
-
-    this.productsService.updateProduct(this.productId, formData).subscribe({
-      next: () => {
-        alert('Product updated successfully!');
-        this.router.navigate(['/panel']);
-      },
-      error: (err) => {
-        console.error('Update failed', err);
-        alert('Failed to update product');
-      },
-    });
+    if (this.route.snapshot.paramMap.get('id') !== 'new') {
+      this.productsService.updateProduct(String(this.productId), formData).subscribe({
+        next: () => {
+          alert('Το αντικείμενο ενημερώθηκε επιτυχώς!');
+          this.router.navigate(['/panel']);
+        },
+        error: (err) => {
+          alert('Σφάλμα καταχώρησης');
+        },
+      });
+    } else {
+      this.productsService.createProduct(formData).subscribe({
+        next: () => {
+          alert('Το αντικείμενο καταχωρήθηκε επιτυχώς!');
+          this.router.navigate(['/panel']);
+        },
+        error: (err) => {
+          alert('Σφάλμα καταχώρησης');
+        },
+      });
+    }
   }
 }

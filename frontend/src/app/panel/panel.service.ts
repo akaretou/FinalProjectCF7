@@ -9,20 +9,32 @@ import { API_URL } from '../constants';
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${API_URL}/listings`, {
+  getProducts(): Observable<any> {
+    return this.http.get<any>(`${API_URL}/me/listings`, {
       withCredentials: true,
     });
   }
 
-  getProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${API_URL}/listing/${id}`, {
+  getProduct(id: string): Observable<any> {
+    return this.http.get<any>(`${API_URL}/me/listing/${id}`, {
       withCredentials: true,
     });
   }
 
-  updateProduct(id: number, formData: FormData) {
-    return this.http.put(`${API_URL}/listing/${id}`, formData, {
+  createProduct(formData: FormData) {
+    return this.http.post(`${API_URL}/me/listings`, formData, {
+      withCredentials: true,
+    });
+  }
+
+  updateProduct(id: string, formData: FormData) {
+    return this.http.put(`${API_URL}/me/listing/${id}`, formData, {
+      withCredentials: true,
+    });
+  }
+
+  deleteProduct(id: string) {
+    return this.http.delete(`${API_URL}/me/listing/${id}`, {
       withCredentials: true,
     });
   }

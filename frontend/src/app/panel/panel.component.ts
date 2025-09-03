@@ -31,20 +31,20 @@ export class PanelPage implements OnInit {
   ngOnInit() {
     this.fetchProducts();
   }
-
+ 
   fetchProducts() {
     this.productsService.getProducts().subscribe({
       next: (res) => {
-        this.products.set(res.map(
+        this.products.set(res.listings.map(
           (p: any) =>
             new Product(
-              p.id,
+              p._id,
               p.title,
               p.description,
               p.address,
               p.geolocation,
               p.status,
-              p.image,
+              'uploads/' + p.image,
               p.category,
               p.availableUntil
             )
@@ -52,7 +52,7 @@ export class PanelPage implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error fetching products', err);
+        alert('Σφάλμα λήψης προϊόντων');
         this.loading = false;
       }
     });
@@ -64,8 +64,16 @@ export class PanelPage implements OnInit {
   }
 
   deleteProduct(product: Product) {
-    if (confirm(`Are you sure you want to delete "${product.title}"?`)) {
-      this.products.set(this.products().filter(p => p.id !== product.id));
+    if (confirm(`Θέλετε να διαγράψετε οριστικά το αντικείμενο: "${product.title}"?`)) {
+      this.productsService.deleteProduct(String(product.id)).subscribe({
+      next: (res) => {
+        alert('Το αντικείμενο διαγράφηκε!');
+        this.fetchProducts()
+      },
+      error: (err) => {
+        alert('Αποτυχία διαγραφής');      
+      }
+    });
     }
   }
 }
