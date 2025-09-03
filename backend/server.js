@@ -78,7 +78,6 @@ app.get('/me', async (req, res) => {
   res.json({ id: user.id, username: user.username });
 });
 
-
 const listings = [
   {
     id: 1,
@@ -86,11 +85,11 @@ const listings = [
     description: '256GB, Titanium Black, 6.1" OLED display, A17 Pro chip.',
     address: 'Warehouse A1, Athens',
     geolocation: {
-      lat: 37.9838,
+      lat: 37.9838, 
       lng: 23.7275
     },
     status: 1,
-    image: 'https://picsum.photos/80?random=11',
+    image: 'https://picsum.photos/300?random=11',
     category: 1,
     availableUntil: '10/01/2025'
   },
@@ -100,11 +99,11 @@ const listings = [
     description: 'Noise-canceling wireless headphones with 30h battery.',
     address: 'Warehouse B3, Thessaloniki',
     geolocation: {
-      lat: 40.6401,
-      lng: 22.9444,
+      lat: 40.640063,
+      lng: 22.944419,
     },
     status: 1,
-    image: 'https://picsum.photos/80?random=12',
+    image: 'https://picsum.photos/300?random=12',
     category: 2,
     availableUntil: '10/01/2025'
   },
@@ -114,11 +113,11 @@ const listings = [
     description: 'Smart TV with HDR, 120Hz refresh rate, Dolby Atmos.',
     address: 'Warehouse C2, Patras',
     geolocation: {
-      lat: 38.2466, 
-      lng: 21.7346,
+      lat: 38.246639,
+      lng: 21.734573,
     },
     status: 3,
-    image: 'https://picsum.photos/80?random=13',
+    image: 'https://picsum.photos/300?random=13',
     category: 3,
     availableUntil: '10/01/2025'
   },
@@ -128,11 +127,11 @@ const listings = [
     description: 'Comfortable and stylish sneakers in white/red colorway.',
     address: 'Warehouse D1, Heraklion',
     geolocation: {
-      lat: 35.3387,
-      lng: 25.1442
+      lat: 35.338735,
+      lng: 25.144213
     },
     status: 1,
-    image: 'https://picsum.photos/80?random=14',
+    image: 'https://picsum.photos/300?random=14',
     category: 2,
     availableUntil: '10/01/2025'
   },
@@ -142,21 +141,49 @@ const listings = [
     description: 'Breathable sports T-shirt, quick dry technology.',
     address: 'Warehouse E5, Volos',
     geolocation: {
-      lat: 39.3610,
-      lng: 22.9425,
+      lat: 39.362019,
+      lng: 22.942222,
     },
     status: 2,
-    image: 'https://picsum.photos/80?random=15',
+    image: 'https://picsum.photos/300?random=15',
+    category: 2,
+    availableUntil: '10/01/2025'
+  },
+  {
+    id: 6,
+    title: 'Orange juice',
+    description: 'Closed bottle',
+    address: 'Thessaloniki',
+    geolocation: {
+      lat: 40.641063,
+      lng: 22.844419,
+    },
+    status: 1,
+    image: 'https://picsum.photos/300?random=12',
     category: 2,
     availableUntil: '10/01/2025'
   }
 ];
 
-app.get('/listings', authRequired, (req, res) => {
-  res.json(listings);
+
+app.get('/listings', (req, res) => {
+  const start = (req.query.page - 1) * req.query.perPage; 
+  const end = start + req.query.perPage;
+  res.json({
+    listings:listings.slice(start, end),
+    pages: Math.ceil(listings.length / req.query.perPage)
+  });
 });
 
-app.get('/listing/:id', authRequired, (req, res) => {
+app.get('/listings/map', (req, res) => {
+  res.json({
+    listings:listings,
+    pages: Math.ceil(listings.length / req.query.perPage)
+  });
+});
+
+
+app.get('/listing/:id', (req, res) => {
   const listing = listings.find(l => l.id === Number(req.params.id));
   if (!listing) return res.status(404).json({ message: 'Not found' });
   res.json(listing);
