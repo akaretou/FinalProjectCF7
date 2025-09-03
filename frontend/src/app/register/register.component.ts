@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Header } from '../header';
 import { FormsModule } from '@angular/forms';
 import { RegisterForm } from './registerForm.model';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'register-page',
@@ -13,6 +14,8 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterPage {
   protected title = 'Register Page';
+  constructor(private auth: AuthService, private router: Router) { }
+
   model = new RegisterForm('', '', '');
 
   passwordsMatch(): boolean {
@@ -23,38 +26,19 @@ export class RegisterPage {
     return !!this.model.email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   }
 
+  error = ""
+  firstname = ""
+  lastname = ""
+  email = ""
+  mobile = ""
+  password = ""
+  password2 = ""
+  
+
   submit() {
-    if (!this.passwordsMatch()) {
-      alert('Οι κωδικοί δεν ταιριάζουν.');
-      return;
-    }
-
-    const formData = {
-      firstname: this.model.firstname,
-      lastname: this.model.lastname,
-      email: this.model.email,
-      mobile: this.model.mobile,
-      password: this.model.password,
-    };
-
-    fetch('/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error('Registration failed');
-        return res.json();
-      })
-      .then((data) => {
-        console.log('Success:', data);
-        // redirect or notify user
-      })
-      .catch((err) => {
-        console.error('Error:', err);
-        alert('Η εγγραφή απέτυχε.');
-      });
+    this.auth.register(this.firstname, this.lastname, this.email, this.mobile, this.password).subscribe({
+      next: () =>  this.router.navigate(['/login']),
+      error: () => this.error = 'Η εγγραφή απέτυχε'
+    });
   }
 }
